@@ -30,7 +30,7 @@ func TestSub(t *testing.T) {
 }
 
 func TestNewAST(t *testing.T) {
-	result, err := ParseAndExec("10^0.038552608606513", map[string]float64{"a": math.Pi / 2, "b": 24, "c": 1})
+	result, err := ParseAndExec("lg(100)", map[string]float64{"a": math.Pi / 2, "b": 24, "c": 1})
 	if err != nil {
 		log.Panicln(err)
 	}

@@ -62,7 +62,10 @@ func init() {
 
 		"sum": {-1, defSum, defSumLaTex},
 
+		// 对数函数
 		"log": {2, defLog, defLogLaTex},
+		"lg":  {1, defLg, defLgLaTex},
+		"ln":  {1, defLn, defLnLaTex},
 	}
 }
 
@@ -283,4 +286,22 @@ func defLogLaTex(args ...ExprNode) string {
 	}
 
 	return fmt.Sprintf("\\log_{%s}^{%s}", ExprASTLaTex(args[0]), ExprASTLaTex(args[1]))
+}
+
+// lg
+func defLg(params map[string]float64, expr ...ExprNode) float64 {
+	return math.Log10(ExprASTResult(expr[0], params))
+}
+
+func defLgLaTex(args ...ExprNode) string {
+	return fmt.Sprintf("\\lg{%s}", ExprASTLaTex(args[0]))
+}
+
+// ln
+func defLn(params map[string]float64, expr ...ExprNode) float64 {
+	return math.Log10(ExprASTResult(expr[0], params)) / math.Log10(math.E)
+}
+
+func defLnLaTex(args ...ExprNode) string {
+	return fmt.Sprintf("\\ln{%s}", ExprASTLaTex(args[0]))
 }
