@@ -127,9 +127,10 @@ func (a *AST) parseFunCallerOrConst() ExprNode {
 
 	// call const
 	if v, ok := defConst[name]; ok {
-		return NumberExprNode{
-			Val: v,
-			Str: strconv.FormatFloat(v, 'f', 0, 64),
+		return ConstExprNode{
+			Name: name,
+			Val:  v,
+			Str:  strconv.FormatFloat(v, 'f', 0, 64),
 		}
 	} else {
 		a.Err = errors.New(
@@ -184,7 +185,7 @@ func (a *AST) parseOperator() ExprNode {
 // 解析变量
 func (a *AST) parseVariable() ExprNode {
 	n := VariableExprNode{
-		Val: a.currTok.Value[1:],
+		Val: a.currTok.Value,
 	}
 	a.getNextToken()
 	return n

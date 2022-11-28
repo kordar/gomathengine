@@ -60,3 +60,18 @@ func (v VariableExprNode) toStr() string {
 		v.Val,
 	)
 }
+
+// ConstExprNode 常量节点
+type ConstExprNode struct {
+	Name string
+	Str  string
+	Val  float64
+}
+
+func (c ConstExprNode) toStr() string {
+	return fmt.Sprintf(
+		"ConstExprNode:%s=%s",
+		c.Name,
+		c.Str,
+	)
+}

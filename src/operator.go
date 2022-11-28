@@ -16,7 +16,7 @@ type OperatorUnit interface {
 	Name() byte
 	Precedence() int
 	Result(a float64, b float64) float64
-	ToLaTex(a float64, b float64) string
+	ToLaTex(a string, b string) string
 }
 
 var operators = map[byte]OperatorUnit{
@@ -46,7 +46,7 @@ func (L *LBrackets) Result(a float64, b float64) float64 {
 	return NoneResult
 }
 
-func (L *LBrackets) ToLaTex(a float64, b float64) string {
+func (L *LBrackets) ToLaTex(a string, b string) string {
 	return ""
 }
 
@@ -66,7 +66,7 @@ func (R *RBrackets) Result(a float64, b float64) float64 {
 	return NoneResult
 }
 
-func (R *RBrackets) ToLaTex(a float64, b float64) string {
+func (R *RBrackets) ToLaTex(a string, b string) string {
 	return ""
 }
 
@@ -89,8 +89,8 @@ func (p *Plus) Result(a float64, b float64) float64 {
 	return f
 }
 
-func (p *Plus) ToLaTex(a float64, b float64) string {
-	return fmt.Sprintf("%s + %s", Float64ToStr(a), Float64ToStr(b))
+func (p *Plus) ToLaTex(a string, b string) string {
+	return fmt.Sprintf("%s + %s", a, b)
 }
 
 // Minus 两数相减
@@ -112,8 +112,8 @@ func (m *Minus) Result(a float64, b float64) float64 {
 	return f
 }
 
-func (m *Minus) ToLaTex(a float64, b float64) string {
-	return fmt.Sprintf("%s - %s", Float64ToStr(a), Float64ToStr(b))
+func (m *Minus) ToLaTex(a string, b string) string {
+	return fmt.Sprintf("%s - %s", a, b)
 }
 
 // Mul 两数相乘
@@ -133,8 +133,8 @@ func (m *Mul) Result(a float64, b float64) float64 {
 	return f
 }
 
-func (m *Mul) ToLaTex(a float64, b float64) string {
-	return fmt.Sprintf("%s \\times %s", Float64ToStr(a), Float64ToStr(b))
+func (m *Mul) ToLaTex(a string, b string) string {
+	return fmt.Sprintf("%s \\times %s", a, b)
 }
 
 // Div 两数相除
@@ -160,8 +160,8 @@ func (d *Div) Result(a float64, b float64) float64 {
 	return f
 }
 
-func (d *Div) ToLaTex(a float64, b float64) string {
-	return fmt.Sprintf("\\frac{%s}{%s}", Float64ToStr(a), Float64ToStr(b))
+func (d *Div) ToLaTex(a string, b string) string {
+	return fmt.Sprintf("\\frac{%s}{%s}", a, b)
 }
 
 // Mod 两数取模
@@ -186,8 +186,8 @@ func (m *Mod) Result(a float64, b float64) float64 {
 	return float64(int(a) % int(b))
 }
 
-func (m *Mod) ToLaTex(a float64, b float64) string {
-	return fmt.Sprintf("(%s %% %s)", Float64ToStr(a), Float64ToStr(b))
+func (m *Mod) ToLaTex(a string, b string) string {
+	return fmt.Sprintf("(%s %% %s)", a, b)
 }
 
 // Pow 指数运算
@@ -206,6 +206,6 @@ func (p *Pow) Result(a float64, b float64) float64 {
 	return math.Pow(a, b)
 }
 
-func (p *Pow) ToLaTex(a float64, b float64) string {
-	return fmt.Sprintf("%s^{%s}", Float64ToStr(a), Float64ToStr(b))
+func (p *Pow) ToLaTex(a string, b string) string {
+	return fmt.Sprintf("%s^{%s}", a, b)
 }

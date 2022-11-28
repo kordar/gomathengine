@@ -7,13 +7,21 @@ import (
 )
 
 func TestParse(t *testing.T) {
-	tokens, err := Parse("1+2-3*4sin($x , $y )+  $c*1")
+	s := "sum($a, infty, sin(#i))  "
+	tokens, err := Parse(s)
 	if err != nil {
 		log.Panicln(err)
 	}
 	for _, token := range tokens {
 		log.Println(token)
 	}
+	ast := NewAST(tokens, s)
+	expression := ast.ParseExpression()
+	if ast.Err != nil {
+		log.Panicln(ast.Err)
+	}
+	tex := ExprASTLaTex(expression)
+	log.Println(tex)
 }
 
 func TestSub(t *testing.T) {
@@ -22,7 +30,7 @@ func TestSub(t *testing.T) {
 }
 
 func TestNewAST(t *testing.T) {
-	result, err := ParseAndExec("12*2+sin($a)", map[string]float64{"a": math.Pi / 2, "b": 24, "c": 1})
+	result, err := ParseAndExec("sum(1, 5, #i-1)", map[string]float64{"a": math.Pi / 2, "b": 24, "c": 1})
 	if err != nil {
 		log.Panicln(err)
 	}

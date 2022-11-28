@@ -183,5 +183,5 @@ func (p *Parser) isWordChar(c byte) bool {
 }
 
 func (p *Parser) isVar(c byte) bool {
-	return '$' == c
+	return '$' == c || '#' == c
 }
