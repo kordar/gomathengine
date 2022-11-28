@@ -7,7 +7,7 @@ import (
 )
 
 func TestParse(t *testing.T) {
-	s := "sum($a, infty, sin(#i))  "
+	s := "sum(2, 10, sin(#i)) + log(10, 6) + 10^5.038552608606513 "
 	tokens, err := Parse(s)
 	if err != nil {
 		log.Panicln(err)
@@ -30,7 +30,7 @@ func TestSub(t *testing.T) {
 }
 
 func TestNewAST(t *testing.T) {
-	result, err := ParseAndExec("sum(1, 5, #i-1)", map[string]float64{"a": math.Pi / 2, "b": 24, "c": 1})
+	result, err := ParseAndExec("10^0.038552608606513", map[string]float64{"a": math.Pi / 2, "b": 24, "c": 1})
 	if err != nil {
 		log.Panicln(err)
 	}

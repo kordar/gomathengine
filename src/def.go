@@ -29,36 +29,12 @@ var defConst = map[string]float64{
 	"pi":    math.Pi,
 	"e":     math.E,
 	"infty": 0,
-	"i":     0,
-	"j":     0,
-	"k":     0,
-	"m":     0,
-	"n":     0,
-	"o":     0,
-	"p":     0,
-	"q":     0,
-	"r":     0,
-	"c":     0,
-	"a":     0,
-	"b":     0,
 }
 
 var defConstLaTex = map[string]string{
 	"pi":    "π",
 	"e":     "e",
 	"infty": "\\infty",
-	"i":     "i",
-	"j":     "j",
-	"k":     "k",
-	"m":     "m",
-	"n":     "n",
-	"o":     "o",
-	"p":     "p",
-	"q":     "q",
-	"r":     "r",
-	"c":     "c",
-	"a":     "a",
-	"b":     "b",
 }
 
 var defFunc map[string]DefineFunc
@@ -85,6 +61,8 @@ func init() {
 		"min": {-1, defMin, defaultLaTexFunc},
 
 		"sum": {-1, defSum, defSumLaTex},
+
+		"log": {2, defLog, defLogLaTex},
 	}
 }
 
@@ -286,4 +264,23 @@ func defSumLaTex(args ...ExprNode) string {
 	}
 
 	return fmt.Sprintf("\\sum_{i=%s}^{%s} %s", ExprASTLaTex(args[0]), ExprASTLaTex(args[1]), ExprASTLaTex(args[2]))
+}
+
+// log
+func defLog(params map[string]float64, expr ...ExprNode) float64 {
+	if len(expr) != 2 {
+		panic(errors.New("calling function `log` must have two parameter."))
+	}
+
+	a := ExprASTResult(expr[0], params)
+	b := ExprASTResult(expr[1], params)
+	return math.Log10(b) / math.Log10(a)
+}
+
+func defLogLaTex(args ...ExprNode) string {
+	if len(args) != 2 {
+		panic(errors.New("calling function `log` must have two parameter."))
+	}
+
+	return fmt.Sprintf("\\log_{%s}^{%s}", ExprASTLaTex(args[0]), ExprASTLaTex(args[1]))
 }
